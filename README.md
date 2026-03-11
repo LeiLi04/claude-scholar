@@ -1,20 +1,39 @@
-# Claude Scholar
-
 <div align="center">
-  <img src="LOGO.jpeg" alt="Claude Scholar Logo" width="100%"/>
+  <img src="LOGO.png" alt="Claude Scholar Logo" width="100%"/>
+
+  <p>
+    <a href="https://github.com/Galaxy-Dawn/claude-scholar/stargazers"><img src="https://img.shields.io/github/stars/Galaxy-Dawn/claude-scholar?style=flat-square&color=yellow" alt="Stars"/></a>
+    <a href="https://github.com/Galaxy-Dawn/claude-scholar/network/members"><img src="https://img.shields.io/github/forks/Galaxy-Dawn/claude-scholar?style=flat-square" alt="Forks"/></a>
+    <img src="https://img.shields.io/github/last-commit/Galaxy-Dawn/claude-scholar?style=flat-square" alt="Last Commit"/>
+    <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License"/>
+    <img src="https://img.shields.io/badge/Claude_Code-Compatible-blueviolet?style=flat-square" alt="Claude Code"/>
+    <img src="https://img.shields.io/badge/Codex_CLI-Compatible-blue?style=flat-square" alt="Codex CLI"/>
+    <img src="https://img.shields.io/badge/OpenCode-Compatible-orange?style=flat-square" alt="OpenCode"/>
+  </p>
+
+  <strong>Language</strong>: <a href="README.md">English</a> | <a href="README.zh-CN.md">中文</a>
 </div>
 
-**Language**: [English](README.md) | [中文](README.zh-CN.md)
-
-Personal Claude Code configuration repository, optimized for academic research and software development - a complete working environment.
+> Personal [Claude Code](https://github.com/anthropics/claude-code) / [Codex CLI](https://github.com/openai/codex) / [OpenCode](https://github.com/opencode-ai/opencode) configuration for academic research and software development — covering the full research lifecycle from ideation to publication.
 
 ## News
 
+- **2026-02-26**: **Zotero MCP Web API mode** — remote access, import papers via DOI/arXiv ID/URL, collection management, item updates, safe deletion; config guides for [Claude Code](./MCP_SETUP.md), [Codex CLI](./MCP_SETUP.md#codex-cli), [OpenCode](./MCP_SETUP.md#opencode)
+- **2026-02-25**: **Codex CLI** support — added `codex` branch supporting [OpenAI Codex CLI](https://github.com/openai/codex) with config.toml, 40 skills, 14 agents, and sandbox security
+- **2026-02-23**: Added `setup.sh` installer — safe merge into existing `~/.claude`, auto-backup `settings.json`, smart hooks/mcpServers/plugins merge
+- **2026-02-21**: **OpenCode** support — Claude Scholar now supports [OpenCode](https://github.com/opencode-ai/opencode) as an alternative CLI; switch to the `opencode` branch for OpenCode-compatible configuration
+
+<details>
+<summary>View older changelog</summary>
+
+- **2026-02-20**: Bilingual config — translated `CLAUDE.md` to English for international readability; added `CLAUDE.zh-CN.md` as Chinese backup; Chinese users can switch with `cp CLAUDE.zh-CN.md CLAUDE.md`
 - **2026-02-15**: Zotero MCP integration — added `/zotero-review` and `/zotero-notes` commands, updated `research-ideation` skill with Zotero integration guide, enhanced `literature-reviewer` agent with Zotero MCP support for automated paper import, collection management, full-text reading, and citation export
 - **2026-02-14**: Hooks optimization — restructured `security-guard` to two-tier system (Block + Confirm), `skill-forced-eval` now groups skills into 6 categories with silent scan mode, `session-start` limits display to top 5, `session-summary` adds 30-day log auto-cleanup, `stop-summary` shows separate added/modified/deleted counts; removed deprecated shell scripts (lib/common.sh, lib/platform.sh)
 - **2026-02-11**: Major update — added 10 new skills (research-ideation, results-analysis, citation-verification, review-response, paper-self-review, post-acceptance, daily-coding, frontend-design, ui-ux-pro-max, web-design-reviewer), 7 new agents, 8 research workflow commands, 2 new rules (security, experiment-reproducibility); restructured CLAUDE.md; 89 files changed
 - **2026-01-26**: Rewrote all Hooks to cross-platform Node.js; completely rewrote README; expanded ML paper writing knowledge base; merged PR #1 (cross-platform support)
 - **2026-01-25**: Project open-sourced, v1.0.0 released with 25 skills (architecture-design, bug-detective, git-workflow, kaggle-learner, scientific-writing, etc.), 2 agents (paper-miner, kaggle-miner), 30+ commands (including SuperClaude suite), 5 Shell Hooks, and 2 rules (coding-style, agents)
+
+</details>
 
 ## Introduction
 
@@ -32,6 +51,7 @@ Claude Scholar is a personal configuration system for Claude Code CLI, providing
 | 📚 [Core Workflows](#core-workflows) | Paper writing, code organization, skill evolution |
 | 🛠️ [What's Included](#whats-included) | Skills, commands, agents overview |
 | 📖 [Installation Guide](#installation-options) | Full, minimal, or selective setup |
+| 📦 [MCP Setup](#mcp-setup) | Zotero MCP for research workflows |
 | 🔧 [Project Rules](#project-rules) | Coding style and agent orchestration |
 
 ## Core Workflows
@@ -206,6 +226,9 @@ skill-development → skill-quality-reviewer → skill-improver
 
 ## File Structure
 
+<details>
+<summary>View file structure</summary>
+
 ```
 claude-scholar/
 ├── hooks/               # Cross-platform JavaScript hooks (automated enforcement)
@@ -330,6 +353,8 @@ claude-scholar/
 └── README.md            # This file - overview, installation, features
 ```
 
+</details>
+
 ## Feature Highlights
 
 ### Skills (32 total)
@@ -440,14 +465,12 @@ Choose the installation method that fits your needs:
 
 #### Option 1: Full Installation (Recommended)
 
-Complete setup for data science, AI research, and academic writing:
-
 ```bash
-# Clone the repository
-git clone https://github.com/Galaxy-Dawn/claude-scholar.git ~/.claude
-
-# Restart Claude Code CLI
+git clone https://github.com/Galaxy-Dawn/claude-scholar.git /tmp/claude-scholar
+bash /tmp/claude-scholar/scripts/setup.sh
 ```
+
+The script merges skills/commands/agents/rules/hooks into your existing `~/.claude`, and adds hooks/mcpServers/enabledPlugins to your `settings.json` (auto-backup to `settings.json.bak`). Your env and permissions are untouched.
 
 **Includes**: All 32 skills, 50+ commands, 14 agents, 5 hooks, and project rules.
 
@@ -473,6 +496,8 @@ cp -r /tmp/claude-scholar/skills/bug-detective ~/.claude/skills/
 # Cleanup
 rm -rf /tmp/claude-scholar
 ```
+
+**Post-install**: Merge hooks config into your `settings.json` — see `settings.json.template` for the required hooks entries.
 
 **Includes**: 5 hooks, 7 core skills (complete research workflow + essential development).
 
@@ -501,14 +526,48 @@ cp rules/coding-style.md ~/.claude/rules/
 cp rules/agents.md ~/.claude/rules/
 ```
 
+**Post-install**: Merge hooks config into your `settings.json` — see `settings.json.template`.
+
 **Recommended for**: Advanced users who want custom configurations.
 
 ### Requirements
 
 - Claude Code CLI
 - Git
-- (Optional) Node.js (for hooks)
-- (Optional) uv, Python (for Python development)
+- Node.js (required for hooks)
+- uv, Python (for Python development)
+- **Zotero** (for Zotero MCP features)
+
+### MCP Setup
+
+For Zotero-integrated research workflows, install the MCP server:
+
+```bash
+# Install from Galaxy-Dawn fork (Web API mode)
+uv tool install git+https://github.com/Galaxy-Dawn/zotero-mcp.git
+```
+
+Then add to your `~/.claude/settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "zotero": {
+      "command": "zotero-mcp",
+      "args": ["serve"],
+      "env": {
+        "ZOTERO_API_KEY": "your-api-key",
+        "ZOTERO_LIBRARY_ID": "your-library-id",
+        "ZOTERO_LIBRARY_TYPE": "user",
+        "UNPAYWALL_EMAIL": "your-email@example.com",
+        "UNSAFE_OPERATIONS": "all"
+      }
+    }
+  }
+}
+```
+
+See [MCP_SETUP.md](./MCP_SETUP.md) for detailed setup guide and troubleshooting.
 
 ### First Run
 

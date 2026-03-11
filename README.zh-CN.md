@@ -1,20 +1,39 @@
-# Claude Scholar
-
 <div align="center">
-  <img src="LOGO.jpeg" alt="Claude Scholar Logo" width="100%"/>
+  <img src="LOGO.png" alt="Claude Scholar Logo" width="100%"/>
+
+  <p>
+    <a href="https://github.com/Galaxy-Dawn/claude-scholar/stargazers"><img src="https://img.shields.io/github/stars/Galaxy-Dawn/claude-scholar?style=flat-square&color=yellow" alt="Stars"/></a>
+    <a href="https://github.com/Galaxy-Dawn/claude-scholar/network/members"><img src="https://img.shields.io/github/forks/Galaxy-Dawn/claude-scholar?style=flat-square" alt="Forks"/></a>
+    <img src="https://img.shields.io/github/last-commit/Galaxy-Dawn/claude-scholar?style=flat-square" alt="Last Commit"/>
+    <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License"/>
+    <img src="https://img.shields.io/badge/Claude_Code-Compatible-blueviolet?style=flat-square" alt="Claude Code"/>
+    <img src="https://img.shields.io/badge/Codex_CLI-Compatible-blue?style=flat-square" alt="Codex CLI"/>
+    <img src="https://img.shields.io/badge/OpenCode-Compatible-orange?style=flat-square" alt="OpenCode"/>
+  </p>
+
+  <strong>语言</strong>: <a href="README.md">English</a> | <a href="README.zh-CN.md">中文</a>
 </div>
 
-**语言**: [English](README.md) | [中文](README.zh-CN.md)
-
-面向学术研究和软件开发的个人 Claude Code 配置仓库 - 一个完整的工作环境。
+> 面向学术研究和软件开发的个人 [Claude Code](https://github.com/anthropics/claude-code) / [Codex CLI](https://github.com/openai/codex) / [OpenCode](https://github.com/opencode-ai/opencode) 配置仓库 — 覆盖从构思到发表的完整研究生命周期。
 
 ## News
 
+- **2026-02-26**: **Zotero MCP Web API 模式** — 支持远程访问，可通过 DOI/arXiv ID/URL 导入论文，进行集合管理、条目更新，安全删除；附 [Claude Code](./MCP_SETUP.zh-CN.md)、[Codex CLI](./MCP_SETUP.zh-CN.md#codex-cli)、[OpenCode](./MCP_SETUP.zh-CN.md#opencode) 三平台配置指南
+- **2026-02-25**: **Codex CLI** 支持 — 新增 `codex` 分支，支持 [OpenAI Codex CLI](https://github.com/openai/codex)，包含 config.toml、40 个 skills、14 个 agents 和 sandbox 安全机制
+- **2026-02-23**: 新增 `setup.sh` 安装脚本 — 安全合并到已有 `~/.claude`，自动备份 `settings.json`，智能合并 hooks/mcpServers/plugins
+- **2026-02-21**: **OpenCode** 支持 — Claude Scholar 现已支持 [OpenCode](https://github.com/opencode-ai/opencode) 作为替代 CLI；切换到 `opencode` 分支获取兼容配置
+
+<details>
+<summary>查看历史更新日志</summary>
+
+- **2026-02-20**: 双语配置 — 将 `CLAUDE.md` 翻译为英文以便国际用户阅读；新增 `CLAUDE.zh-CN.md` 作为中文备份；中文用户可通过 `cp CLAUDE.zh-CN.md CLAUDE.md` 切换回中文版
 - **2026-02-15**: Zotero MCP 集成 — 新增 `/zotero-review` 和 `/zotero-notes` 命令，更新 `research-ideation` skill 添加 Zotero 集成指南，增强 `literature-reviewer` agent 支持 Zotero MCP 自动论文导入、集合管理、全文阅读和引用导出
 - **2026-02-14**: Hooks 优化 — `security-guard` 重构为两层系统（Block + Confirm），`skill-forced-eval` 按 6 类分组并切换为静默扫描模式，`session-start` 限制显示前 5 项，`session-summary` 新增 30 天日志自动清理，`stop-summary` 分别显示新增/修改/删除计数；移除废弃的 shell 脚本（lib/common.sh、lib/platform.sh）
 - **2026-02-11**: 大版本更新，新增 10 个 skills（research-ideation、results-analysis、citation-verification、review-response、paper-self-review、post-acceptance、daily-coding、frontend-design、ui-ux-pro-max、web-design-reviewer）、7 个 agents、8 个研究工作流命令、2 条新规则（security、experiment-reproducibility）；重构 CLAUDE.md；涉及 89 个文件
 - **2026-01-26**: 所有 Hooks 重写为跨平台 Node.js 版本；README 完全重写；扩展 ML 论文写作知识库；合并 PR #1（跨平台支持）
 - **2026-01-25**: 项目正式开源，v1.0.0 发布，包含 25 个 skills（architecture-design、bug-detective、git-workflow、kaggle-learner、scientific-writing 等）、2 个 agents（paper-miner、kaggle-miner）、30+ 个命令（含 SuperClaude 命令套件）、5 个 Shell Hooks、2 条规则（coding-style、agents）
+
+</details>
 
 ## 简介
 
@@ -32,6 +51,7 @@ Claude Scholar 是一个面向 Claude Code CLI 的个人配置系统，提供丰
 | 📚 [核心工作流](#核心工作流) | 论文写作、代码组织、技能进化 |
 | 🛠️ [功能亮点](#功能亮点) | 技能、命令、代理概览 |
 | 📖 [安装指南](#安装选项) | 完整、最小化或选择性安装 |
+| 📦 [MCP 配置](#mcp-服务配置) | Zotero MCP 研究工作流集成 |
 | 🔧 [项目规则](#项目规则) | 代码风格和代理编排 |
 
 ## 核心工作流
@@ -206,6 +226,9 @@ skill-development → skill-quality-reviewer → skill-improver
 
 ## 文件结构
 
+<details>
+<summary>查看文件结构</summary>
+
 ```
 claude-scholar/
 ├── hooks/               # 跨平台 JavaScript 钩子（自动化执行）
@@ -330,6 +353,8 @@ claude-scholar/
 └── README.md            # 本文件 - 概述、安装、功能
 ```
 
+</details>
+
 ## 功能亮点
 
 ### 技能（32 个）
@@ -440,14 +465,14 @@ claude-scholar/
 
 #### 选项 1：完整安装（推荐）
 
-数据科学、AI 研究和学术写作的完整设置：
+安全合并到已有的 `~/.claude` 目录，不会覆盖个人配置：
 
 ```bash
-# 克隆仓库
-git clone https://github.com/Galaxy-Dawn/claude-scholar.git ~/.claude
-
-# 重启 Claude Code CLI
+git clone https://github.com/Galaxy-Dawn/claude-scholar.git /tmp/claude-scholar
+bash /tmp/claude-scholar/scripts/setup.sh
 ```
+
+脚本会将 skills/commands/agents/rules/hooks 复制到 `~/.claude`，并将 hooks/mcpServers/enabledPlugins 合并到 `settings.json`（自动备份为 `settings.json.bak`）。你的 env 和 permissions 不受影响。
 
 **包含**：所有 32 个技能、50+ 命令、14 个代理、5 个钩子和项目规则。
 
@@ -473,6 +498,8 @@ cp -r /tmp/claude-scholar/skills/bug-detective ~/.claude/skills/
 # 清理
 rm -rf /tmp/claude-scholar
 ```
+
+**安装后**：需要将 hooks 配置合并到 `settings.json` — 参考 `settings.json.template` 中的 hooks 条目。
 
 **包含**：5 个钩子、7 个核心技能（完整研究工作流 + 基本开发）。
 
@@ -501,14 +528,48 @@ cp rules/coding-style.md ~/.claude/rules/
 cp rules/agents.md ~/.claude/rules/
 ```
 
+**安装后**：需要将 hooks 配置合并到 `settings.json` — 参考 `settings.json.template`。
+
 **推荐用于**：想要自定义配置的高级用户。
 
 ### 系统要求
 
 - Claude Code CLI
 - Git
-- （可选）Node.js（用于钩子）
-- （可选）uv、Python（用于 Python 开发）
+- Node.js（钩子依赖，必需）
+- uv、Python（用于 Python 开发）
+- **Zotero**（用于 Zotero MCP 功能）
+
+### MCP 服务配置
+
+如需使用 Zotero 集成的研究工作流，请安装 MCP 服务器：
+
+```bash
+# 从 Galaxy-Dawn fork 安装（Web API 模式）
+uv tool install git+https://github.com/Galaxy-Dawn/zotero-mcp.git
+```
+
+然后在 `~/.claude/settings.json` 中添加：
+
+```json
+{
+  "mcpServers": {
+    "zotero": {
+      "command": "zotero-mcp",
+      "args": ["serve"],
+      "env": {
+        "ZOTERO_API_KEY": "your-api-key",
+        "ZOTERO_LIBRARY_ID": "your-library-id",
+        "ZOTERO_LIBRARY_TYPE": "user",
+        "UNPAYWALL_EMAIL": "your-email@example.com",
+        "UNSAFE_OPERATIONS": "all"
+      }
+    }
+  }
+}
+```
+
+详细设置指南和故障排除请参阅 [MCP_SETUP.zh-CN.md](./MCP_SETUP.zh-CN.md)。
 
 ### 首次运行
 

@@ -1,14 +1,6 @@
 {
   "env": {
-    "ANTHROPIC_AUTH_TOKEN": "<your-anthropic-token>",
-    "ANTHROPIC_BASE_URL": "<your-base-url>",
-    "API_TIMEOUT_MS": "3000000",
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
-    "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-github-token>"
-  },
-  "permissions": {
-    "allow": [],
-    "deny": []
+    "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-github-token-optional>"
   },
   "hooks": {
     "PreToolUse": [
@@ -82,6 +74,17 @@
       "type": "streamable-http",
       "url": "http://127.0.0.1:12306/mcp",
       "description": "Chrome browser automation control service"
+    },
+    "zotero": {
+      "command": "zotero-mcp",
+      "args": ["serve"],
+      "env": {
+        "ZOTERO_API_KEY": "<your-api-key>",
+        "ZOTERO_LIBRARY_ID": "<your-library-id>",
+        "ZOTERO_LIBRARY_TYPE": "user",
+        "UNPAYWALL_EMAIL": "<your-email@example.com>",
+        "UNSAFE_OPERATIONS": "all"
+      }
     }
   },
   "verbose": true
