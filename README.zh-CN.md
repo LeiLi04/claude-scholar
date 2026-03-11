@@ -98,6 +98,7 @@ Claude Scholar 是一个面向 Claude Code CLI 的个人配置系统，提供丰
 **工具**: `architecture-design` skill + `code-reviewer` agent + `git-workflow` skill
 
 **流程**:
+
 - **结构**: Factory & Registry 模式 → 配置驱动模型（仅 `cfg` 参数）→ 由 `rules/coding-style.md` 强制执行
 - **代码风格**: 200-400 行文件 → 需要类型提示 → 配置使用 `@dataclass(frozen=True)` → 最多 3 层嵌套
 - **调试** (`bug-detective`): Python/Bash/JS 的错误模式匹配 → 堆栈跟踪分析 → 反模式识别
@@ -111,7 +112,8 @@ Claude Scholar 是一个面向 Claude Code CLI 的个人配置系统，提供丰
 
 **工具**: `results-analysis` skill + `data-analyst` agent
 
-**流程**:
+#### **流程**:
+
 - **数据处理**: 自动化清理和预处理实验日志
 - **统计检验**: t-test, ANOVA, Wilcoxon signed-rank → 验证显著性
 - **可视化**: matplotlib/seaborn 集成 → 发表级图表（折线图、柱状图、热图）
